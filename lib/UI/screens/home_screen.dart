@@ -167,6 +167,29 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
         ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(bottom: 20, left: 24, right: 24),
+          child: Material(
+            elevation: 2.0,
+            color: const Color(0xFF8338EC),
+            clipBehavior: Clip.antiAlias,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0)),
+            child: MaterialButton(
+              height: 56,
+              minWidth: 312,
+              onPressed: () {},
+              color: const Color(0xFF8338EC),
+              child: Text(
+                'Next',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5
+                    ?.copyWith(color: Colors.white),
+              ),
+            ),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.only(left: 24.0, right: 24, bottom: 24),
           child: TabBarView(
@@ -218,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen>
           _habitTile(
               text: 'Donate to charity',
               imageFile: 'assets/action_icons/donate.png',
-              tileValue: 3)
+              tileValue: 4)
         ],
       );
 
