@@ -9,8 +9,8 @@ class PavlokTheme {
       color: Colors.black,
     ),
     headline1: GoogleFonts.openSans(
-      fontSize: 32.0,
-      fontWeight: FontWeight.bold,
+      fontSize: 23.0,
+      fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
     headline2: GoogleFonts.openSans(

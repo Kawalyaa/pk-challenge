@@ -4,6 +4,7 @@ import 'package:pavlok_challenge/UI/pavlok_theme.dart';
 import 'UI/screens/home_screen.dart';
 
 void main() {
+  //WidgetsFlutterBinding.ensureInitialized();
   runApp(Pavlok());
 }
 

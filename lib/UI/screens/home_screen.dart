@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pavlok_challenge/UI/pavlok_theme.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../widgets/leaf_icon.dart';
+import '../widgets/pav_button.dart';
+import 'sleep_onboarding.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -167,28 +168,13 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
         ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(bottom: 20, left: 24, right: 24),
-          child: Material(
-            elevation: 2.0,
-            color: const Color(0xFF8338EC),
-            clipBehavior: Clip.antiAlias,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0)),
-            child: MaterialButton(
-              height: 56,
-              minWidth: 312,
-              onPressed: () {},
-              color: const Color(0xFF8338EC),
-              child: Text(
-                'Next',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    ?.copyWith(color: Colors.white),
-              ),
-            ),
-          ),
+        bottomNavigationBar: PavButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const SleepOnboarding()));
+          },
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 24.0, right: 24, bottom: 24),
