@@ -9,7 +9,7 @@ class PickDay extends StatefulWidget {
 
 class _PickDayState extends State<PickDay> {
   List<String> values = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-  List<bool> picked = List.generate(7, (index) => index < 3);
+  List<bool> picked = List.generate(7, (index) => index < 2);
 
   pickDay(index) {
     setState(() {

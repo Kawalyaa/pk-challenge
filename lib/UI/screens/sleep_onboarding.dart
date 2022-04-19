@@ -23,8 +23,8 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
   final TimeOfDay _disabledStartTime = const TimeOfDay(hour: 11, minute: 01);
   final TimeOfDay __disabledEndTime = const TimeOfDay(hour: 23, minute: 59);
   final TimeOfDay _startTime = const TimeOfDay(hour: 00, minute: 00);
-  // final TimeOfDay _endTime = const TimeOfDay(hour: 06, minute: 00);
-  TimeOfDay? _selectedTime = const TimeOfDay(hour: 06, minute: 00);
+  final TimeOfDay _sleepGaol = const TimeOfDay(hour: 08, minute: 00);
+  var _selectedTime = const TimeOfDay(hour: 06, minute: 00);
 
   @override
   Widget build(BuildContext context) {
@@ -90,24 +90,24 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                           children: [
                             _buildClock(context, DateTime.now()),
                             Positioned(
-                              right: 80,
-                              left: 80,
-                              top: 82,
-                              bottom: 82,
+                              right: 78,
+                              left: 78,
+                              top: 74,
+                              bottom: 68,
                               child: Column(
                                 children: [
                                   Text(
-                                    '${_selectedTime?.hour}hrs',
+                                    '${_selectedTime.hour}hrs',
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 22),
                                   ),
                                   const SizedBox(
-                                    height: 5,
+                                    height: 3,
                                   ),
                                   Text(
-                                      '${_selectedTime?.minute.toString().padLeft(2, "0")}min',
+                                      '${_selectedTime.minute.toString().padLeft(2, "0")}min',
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w800,
@@ -121,8 +121,47 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                     ),
                   ),
                 ),
+                _selectedTime.hour < _sleepGaol.hour
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/sleep_icons/union.png',
+                            width: 18,
+                            height: 18,
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            'Under your sleep gaol (${_sleepGaol.hour}hrs)',
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ],
+                      )
+                    : Container(),
+                _selectedTime.hour > _sleepGaol.hour
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/sleep_icons/union.png',
+                            width: 18,
+                            height: 18,
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            'Over your sleep gaol (${_sleepGaol.hour}hrs)',
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ],
+                      )
+                    : Container(),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 20),
+                  padding:
+                      const EdgeInsets.only(left: 20.0, right: 20, top: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -141,7 +180,7 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                           ),
                           _buildSleepTime(
                             context,
-                            '${_selectedTime?.hour}:${_selectedTime?.minute.toString().padLeft(2, '0')} AM',
+                            '${_selectedTime.hour}:${_selectedTime.minute.toString().padLeft(2, '0')} AM',
                             'Wakeup',
                             Image.asset(
                               'assets/sleep_icons/wakeup.png',
@@ -195,6 +234,7 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
     );
   }
 
+  double compareTime(TimeOfDay time) => time.hour + time.minute / 60;
   Widget _buildSleepTime(context, time, title, image) {
     return Row(
       children: [
