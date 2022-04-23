@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:pavlok_challenge/UI/pavlok_theme.dart';
 
 import 'UI/screens/home_screen.dart';
+import 'package:provider/provider.dart';
+
+import 'model/time_reminder.dart';
 
 void main() {
-  //WidgetsFlutterBinding.ensureInitialized();
-  runApp(Pavlok());
+  runApp(ChangeNotifierProvider(
+      create: (context) => TimeReminder(), child: Pavlok()));
 }
 
 class Pavlok extends StatelessWidget {

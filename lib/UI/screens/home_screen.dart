@@ -169,6 +169,7 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         ),
         bottomNavigationBar: PavButton(
+          text: 'Next',
           onPressed: () {
             Navigator.push(
                 context,
@@ -227,7 +228,18 @@ class _HomeScreenState extends State<HomeScreen>
           _habitTile(
               text: 'Donate to charity',
               imageFile: 'assets/action_icons/donate.png',
-              tileValue: 4)
+              tileValue: 4),
+          Positioned(
+              bottom: 0,
+              child: PavButton(
+                text: 'Next',
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SleepOnboarding()));
+                },
+              ))
         ],
       );
 

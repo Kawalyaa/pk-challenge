@@ -116,14 +116,6 @@ class IosClockPainter extends CustomPainter {
           ..strokeWidth = [0, 3, 6, 9].contains(i) ? 2 : 1,
       );
     });
-
-    // Center Dots
-    Paint dotPainter = Paint()
-      ..color = Theme.of(context).primaryIconTheme.color!;
-    canvas.drawCircle(center, 24, dotPainter);
-    canvas.drawCircle(
-        center, 23, Paint()..color = Theme.of(context).backgroundColor);
-    // canvas.drawCircle(center, 10, dotPainter);
   }
 
   @override

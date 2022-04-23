@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class PavButton extends StatelessWidget {
   final void Function() onPressed;
+  final String text;
   const PavButton({
+    required this.text,
     required this.onPressed,
     Key? key,
   }) : super(key: key);
@@ -23,7 +25,7 @@ class PavButton extends StatelessWidget {
           onPressed: onPressed,
           color: const Color(0xFF8338EC),
           child: Text(
-            'Next',
+            text,
             style: Theme.of(context)
                 .textTheme
                 .headline5
