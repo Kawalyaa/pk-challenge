@@ -28,12 +28,13 @@ class SleepOnboarding extends StatefulWidget {
 class _SleepOnboardingState extends State<SleepOnboarding> {
   final TimeOfDay _disabledStartTime = const TimeOfDay(hour: 11, minute: 01);
   final TimeOfDay __disabledEndTime = const TimeOfDay(hour: 23, minute: 59);
-  final TimeOfDay _startTime = const TimeOfDay(hour: 00, minute: 00);
+  var _startTime = const TimeOfDay(hour: 00, minute: 00);
   final TimeOfDay _sleepGaol = const TimeOfDay(hour: 08, minute: 00);
   var _selectedTime = const TimeOfDay(hour: 06, minute: 00);
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final manager = Provider.of<TimeReminder>(context);
     return Scaffold(
       appBar: AppBar(
@@ -62,16 +63,16 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 35.0, right: 35.0, top: 2, bottom: 10),
+                      left: 18, right: 18.0, top: 2, bottom: 10),
                   child: TimeRangePicker(
                     minDuration: const Duration(hours: 5),
-                    // onStartChange: (value) {
-                    //   selectedTime = value;
-                    // },
                     onEndChange: (value) {
                       setState(() {
                         _selectedTime = value;
                       });
+                    },
+                    onStartChange: (value) {
+                      _startTime = value;
                     },
                     disabledColor: Colors.grey[300],
                     disabledTime: TimeRange(
@@ -82,48 +83,81 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                     start: _startTime,
                     end: _selectedTime,
                     use24HourFormat: false,
-                    selectedColor: Colors.purple,
-                    strokeColor: Colors.purple,
-                    handlerColor: Colors.purple,
+                    selectedColor: const Color(0xFF8338EC),
+                    strokeColor: const Color(0xFF8338EC),
+                    handlerColor: const Color(0xFF8338EC),
                     hideButtons: true,
                     strokeWidth: 28,
                     handlerRadius: 10,
                     backgroundWidget: Center(
-                      child: SizedBox(
-                        width: 216,
-                        height: 216,
-                        child: Stack(
-                          children: [
-                            _buildClock(context, DateTime.now()),
-                            Positioned(
-                              right: 78,
-                              left: 78,
-                              top: 74,
-                              bottom: 68,
-                              child: Column(
+                      child: size.width > 360
+                          ? SizedBox(
+                              width: 250,
+                              height: 250,
+                              child: Stack(
                                 children: [
-                                  Text(
-                                    '${_selectedTime.hour}hrs',
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 22),
+                                  _buildClock(context, DateTime.now()),
+                                  Positioned(
+                                    right: 78,
+                                    left: 78,
+                                    bottom: 98,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          '${_selectedTime.hour}hrs',
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 22),
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Text(
+                                            '${_selectedTime.minute.toString().padLeft(2, "0")}min',
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: 16))
+                                      ],
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    height: 3,
+                                ],
+                              ),
+                            )
+                          : SizedBox(
+                              width: 200,
+                              height: 200,
+                              child: Stack(
+                                children: [
+                                  _buildClock(context, DateTime.now()),
+                                  Positioned(
+                                    right: 68,
+                                    bottom: 68,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          '${_selectedTime.hour}hrs',
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 22),
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Text(
+                                            '${_selectedTime.minute.toString().padLeft(2, "0")}min',
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: 16))
+                                      ],
+                                    ),
                                   ),
-                                  Text(
-                                      '${_selectedTime.minute.toString().padLeft(2, "0")}min',
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 16))
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
                     ),
                   ),
                 ),
@@ -176,10 +210,7 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                         children: [
                           _buildSleepTime(
                             context,
-                            _startTime
-                                .format(context)
-                                .toString()
-                                .padLeft(2, '0'),
+                            _startTime.format(context),
                             'Bedtime',
                             Image.asset(
                               'assets/sleep_icons/bedtime.png',
@@ -273,12 +304,7 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
             ),
             PavButton(
               text: 'Next',
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MinutesPicker()));
-              },
+              onPressed: () {},
             ),
           ],
         ),
@@ -286,19 +312,19 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
     );
   }
 
-  Widget _selectMinutes({int current = 30}) => NumberPicker(
-        itemCount: 4,
-        selectedTextStyle: const TextStyle(color: Colors.black, fontSize: 30),
-        textStyle: const TextStyle(color: Colors.black54, fontSize: 22),
-        value: current,
-        maxValue: 50,
-        minValue: 10,
-        onChanged: (value) {
-          setState(() {
-            current = value;
-          });
-        },
-      );
+  // Widget _selectMinutes({int current = 30}) => NumberPicker(
+  //       itemCount: 4,
+  //       selectedTextStyle: const TextStyle(color: Colors.black, fontSize: 30),
+  //       textStyle: const TextStyle(color: Colors.black54, fontSize: 22),
+  //       value: current,
+  //       maxValue: 50,
+  //       minValue: 10,
+  //       onChanged: (value) {
+  //         setState(() {
+  //           current = value;
+  //         });
+  //       },
+  //     );
 
   Text text(String text) => Text(
         text,

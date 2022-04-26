@@ -25,13 +25,13 @@ class MinutesPicker extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  const SizedBox(
-                    height: 16,
-                    width: double.infinity,
-                  ),
+                  // const SizedBox(
+                  //   height: 1,
+                  //   width: double.infinity,
+                  // ),
                   Container(
                     width: 30,
                     height: 4,
@@ -40,7 +40,7 @@ class MinutesPicker extends StatelessWidget {
                         color: Colors.grey[400]),
                   ),
                   const SizedBox(
-                    height: 28,
+                    height: 20,
                   ),
                   Text(
                     'Reminder',
@@ -49,14 +49,14 @@ class MinutesPicker extends StatelessWidget {
                         .headline5
                         ?.copyWith(fontSize: 23),
                   ),
-                  const SizedBox(
-                    height: 40,
-                  ),
+                  // const SizedBox(
+                  //   height: 40,
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 180,
+                        height: 170,
                         width: 100,
                         child: NumberPicker(
                           itemCount: 4,
@@ -76,13 +76,13 @@ class MinutesPicker extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 31.0),
+                        padding: const EdgeInsets.only(bottom: 24.0),
                         child: text('min'),
                       )
                     ],
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 4,
                   ),
                   PavButton(
                     text: 'Done',
