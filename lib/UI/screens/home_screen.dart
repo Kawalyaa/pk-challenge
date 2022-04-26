@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen>
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(300),
+          preferredSize: const Size.fromHeight(265),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 30.0, left: 20.0, right: 20, bottom: 20),
+                      top: 30.0, left: 15.0, right: 15, bottom: 15),
                   child: Text(
                     'What\'s your main goal?',
                     textAlign: TextAlign.center,
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 0, left: 20.0, right: 20, bottom: 20),
+                      top: 0, left: 15.0, right: 15, bottom: 15),
                   child: Text(
                     'Let\'s start with one of these habits',
                     textAlign: TextAlign.center,
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 8.0, right: 8, top: 8),
                   child: TabBar(
                       labelColor: const Color(0xFF8338EC),
                       unselectedLabelColor: Colors.black45,
@@ -168,17 +168,8 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
         ),
-        bottomNavigationBar: PavButton(
-          text: 'Next',
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const SleepOnboarding()));
-          },
-        ),
         body: Padding(
-          padding: const EdgeInsets.only(left: 24.0, right: 24, bottom: 24),
+          padding: const EdgeInsets.only(left: 24.0, right: 24, bottom: 10),
           child: TabBarView(
               //controller: _tabController,
               children: [_habitList(), _breakHabitList()]),
@@ -204,7 +195,19 @@ class _HomeScreenState extends State<HomeScreen>
           _habitTile(
               text: 'Spending on credit cards',
               imageFile: 'assets/action_icons/donate.png',
-              tileValue: 3)
+              tileValue: 3),
+          const SizedBox(
+            height: 90,
+          ),
+          PavButton(
+            text: 'Next',
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SleepOnboarding()));
+            },
+          )
         ],
       );
   Widget _habitList() => ListView(
@@ -229,17 +232,18 @@ class _HomeScreenState extends State<HomeScreen>
               text: 'Donate to charity',
               imageFile: 'assets/action_icons/donate.png',
               tileValue: 4),
-          Positioned(
-              bottom: 0,
-              child: PavButton(
-                text: 'Next',
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SleepOnboarding()));
-                },
-              ))
+          const SizedBox(
+            height: 20,
+          ),
+          PavButton(
+            text: 'Next',
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SleepOnboarding()));
+            },
+          )
         ],
       );
 

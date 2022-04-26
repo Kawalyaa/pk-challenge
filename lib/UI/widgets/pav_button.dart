@@ -12,7 +12,7 @@ class PavButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20, left: 24, right: 24),
+      padding: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
       child: Material(
         elevation: 2.0,
         color: const Color(0xFF8338EC),

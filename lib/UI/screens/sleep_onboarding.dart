@@ -6,13 +6,15 @@ import 'package:flutter/widgets.dart';
 import 'package:pavlok_challenge/UI/widgets/pav_button.dart';
 import 'package:pavlok_challenge/model/time_reminder.dart';
 import 'package:provider/provider.dart';
-import 'package:time_range_picker/time_range_picker.dart';
+//import 'package:time_range_picker/time_range_picker.dart';
 
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:time_range_picker/time_range_picker.dart';
 
 import '../widgets/clock_painter.dart';
+import '../widgets/minute_picker.dart';
 import '../widgets/select_day.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -29,14 +31,6 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
   final TimeOfDay _startTime = const TimeOfDay(hour: 00, minute: 00);
   final TimeOfDay _sleepGaol = const TimeOfDay(hour: 08, minute: 00);
   var _selectedTime = const TimeOfDay(hour: 06, minute: 00);
-  int _currentValue = 30;
-  var scrollController;
-
-  @override
-  void initState() {
-    scrollController = FixedExtentScrollController(initialItem: _currentValue);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +40,10 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-      ),
-      bottomNavigationBar: PavButton(
-        text: 'Next',
-        onPressed: () {},
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -184,7 +176,10 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                         children: [
                           _buildSleepTime(
                             context,
-                            '${_startTime.hour.toString().padLeft(2, '0')}:${_startTime.minute.toString().padLeft(2, '0')} AM',
+                            _startTime
+                                .format(context)
+                                .toString()
+                                .padLeft(2, '0'),
                             'Bedtime',
                             Image.asset(
                               'assets/sleep_icons/bedtime.png',
@@ -194,7 +189,7 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                           ),
                           _buildSleepTime(
                             context,
-                            '${_selectedTime.hour}:${_selectedTime.minute.toString().padLeft(2, '0')} AM',
+                            _selectedTime.format(context),
                             'Wakeup',
                             Image.asset(
                               'assets/sleep_icons/wakeup.png',
@@ -234,33 +229,38 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                               bottomRight: Radius.circular(10)),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8.0, right: 40, top: 20),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Remind me before bedtime',
-                            ),
-                            const SizedBox(
-                              width: 80,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                showModalBottomSheet<void>(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return const MinutesPicker();
-                                  },
-                                );
-                              },
-                              child: Text(
-                                '${manager.pickedTime} min',
-                                style: Theme.of(context).textTheme.headline5,
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Remind me before bedtime',
                               ),
-                            ),
-                          ],
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  showModalBottomSheet<void>(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return const MinutesPicker();
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  '${manager.pickedTime} min',
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -268,17 +268,18 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                 ),
               ],
             ),
-            Positioned(
-                bottom: 5,
-                child: PavButton(
-                  text: 'Next',
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MinutesPicker()));
-                  },
-                )),
+            const SizedBox(
+              height: 30,
+            ),
+            PavButton(
+              text: 'Next',
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MinutesPicker()));
+              },
+            ),
           ],
         ),
       ),
