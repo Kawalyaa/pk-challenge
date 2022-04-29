@@ -6,17 +6,10 @@ import 'package:flutter/widgets.dart';
 import 'package:pavlok_challenge/UI/widgets/pav_button.dart';
 import 'package:pavlok_challenge/model/time_reminder.dart';
 import 'package:provider/provider.dart';
-//import 'package:time_range_picker/time_range_picker.dart';
-
-import 'package:step_progress_indicator/step_progress_indicator.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:time_range_picker/time_range_picker.dart';
-
 import '../widgets/clock_painter.dart';
 import '../widgets/minute_picker.dart';
 import '../widgets/select_day.dart';
-import 'package:numberpicker/numberpicker.dart';
 
 class SleepOnboarding extends StatefulWidget {
   const SleepOnboarding({Key? key}) : super(key: key);
@@ -311,20 +304,6 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
       ),
     );
   }
-
-  // Widget _selectMinutes({int current = 30}) => NumberPicker(
-  //       itemCount: 4,
-  //       selectedTextStyle: const TextStyle(color: Colors.black, fontSize: 30),
-  //       textStyle: const TextStyle(color: Colors.black54, fontSize: 22),
-  //       value: current,
-  //       maxValue: 50,
-  //       minValue: 10,
-  //       onChanged: (value) {
-  //         setState(() {
-  //           current = value;
-  //         });
-  //       },
-  //     );
 
   Text text(String text) => Text(
         text,

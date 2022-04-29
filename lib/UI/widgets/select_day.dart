@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:weekday_selector/weekday_selector.dart';
 
 class WeekDaySelector extends StatefulWidget {
@@ -10,8 +9,8 @@ class WeekDaySelector extends StatefulWidget {
 }
 
 class _WeekDaySelectorState extends State<WeekDaySelector> {
-  final values = List.filled(7, true);
-  final values1 = List.generate(7, (index) => index == 1 || index == 6);
+  // final values = List.filled(7, true);
+  final values = List.generate(7, (index) => index == 1 || index == 6);
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +28,10 @@ class _WeekDaySelectorState extends State<WeekDaySelector> {
           // perform validation, a DB write, an HTTP call or anything
           // else before you actually flip the value,
           // it's up to your app's needs.
-          values1[index] = !values1[index];
+          values[index] = !values[index];
         });
       },
-      values: values1,
+      values: values,
     );
   }
 }

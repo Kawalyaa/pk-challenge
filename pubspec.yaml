@@ -17,10 +17,7 @@ dependencies:
   step_progress_indicator: ^1.0.2
   font_awesome_flutter:  ^10.1.0
   material_design_icons_flutter: ^5.0.6595
-  sleek_circular_slider: ^2.0.1
-  syncfusion_flutter_gauges: ^20.1.47
   time_range_picker: ^2.1.0
-  flutter_neumorphic:  ^3.2.0
   dependencies:
   weekday_selector: ^1.1.0
   numberpicker: ^2.1.1
