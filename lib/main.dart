@@ -5,10 +5,16 @@ import 'UI/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'model/time_reminder.dart';
+import 'package:device_preview/device_preview.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-      create: (context) => TimeReminder(), child: Pavlok()));
+  runApp(
+    DevicePreview(
+      //enabled: false,
+      builder: (context) => ChangeNotifierProvider(
+          create: (context) => TimeReminder(), child: Pavlok()),
+    ),
+  );
 }
 
 class Pavlok extends StatelessWidget {
@@ -19,6 +25,9 @@ class Pavlok extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       title: 'Pavlok',
       theme: theme,
       home: const HomeScreen(),

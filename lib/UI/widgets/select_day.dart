@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:weekday_selector/weekday_selector.dart';
 
 class WeekDaySelector extends StatefulWidget {
@@ -16,7 +15,6 @@ class _WeekDaySelectorState extends State<WeekDaySelector> {
   @override
   Widget build(BuildContext context) {
     return WeekdaySelector(
-      selectedTextStyle: const TextStyle(color: Colors.white),
       selectedFillColor: const Color(0xFF8338EC),
       disabledFillColor: const Color(0xffF6F7FB),
       onChanged: (int day) {

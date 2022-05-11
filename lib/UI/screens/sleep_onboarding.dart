@@ -6,11 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:pavlok_challenge/UI/widgets/pav_button.dart';
 import 'package:pavlok_challenge/model/time_reminder.dart';
 import 'package:provider/provider.dart';
-//import 'package:time_range_picker/time_range_picker.dart';
 
-import 'package:step_progress_indicator/step_progress_indicator.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
 import '../widgets/clock_painter.dart';
@@ -35,252 +31,257 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
   @override
   Widget build(BuildContext context) {
     final manager = Provider.of<TimeReminder>(context);
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            Text(
-              'Set bedtime and wakeup',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline1,
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Material(
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: SingleChildScrollView(
+            child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 35.0, right: 35.0, top: 2, bottom: 10),
-                  child: TimeRangePicker(
-                    minDuration: const Duration(hours: 5),
-                    // onStartChange: (value) {
-                    //   selectedTime = value;
-                    // },
-                    onEndChange: (value) {
-                      setState(() {
-                        _selectedTime = value;
-                      });
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      Navigator.pop(context);
                     },
-                    disabledColor: Colors.grey[300],
-                    disabledTime: TimeRange(
-                        startTime: _disabledStartTime,
-                        endTime: __disabledEndTime),
-                    hideTimes: true,
-                    clockRotation: 180,
-                    start: _startTime,
-                    end: _selectedTime,
-                    use24HourFormat: false,
-                    selectedColor: Colors.purple,
-                    strokeColor: Colors.purple,
-                    handlerColor: Colors.purple,
-                    hideButtons: true,
-                    strokeWidth: 28,
-                    handlerRadius: 10,
-                    backgroundWidget: Center(
-                      child: SizedBox(
-                        width: 216,
-                        height: 216,
-                        child: Stack(
-                          children: [
-                            _buildClock(context, DateTime.now()),
-                            Positioned(
-                              right: 78,
-                              left: 78,
-                              top: 74,
-                              bottom: 68,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    '${_selectedTime.hour}hrs',
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 22),
+                  ),
+                ),
+                Text(
+                  'Set bedtime and wakeup',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24.0, right: 24),
+                      child: TimeRangePicker(
+                        autoAdjustLabels: false,
+                        minDuration: const Duration(hours: 5),
+                        onEndChange: (value) {
+                          setState(() {
+                            _selectedTime = value;
+                          });
+                        },
+                        backgroundColor: Colors.grey[300],
+                        disabledColor: Colors.grey[300],
+                        disabledTime: TimeRange(
+                            startTime: _disabledStartTime,
+                            endTime: __disabledEndTime),
+                        hideTimes: true,
+                        clockRotation: 180,
+                        start: _startTime,
+                        end: _selectedTime,
+                        use24HourFormat: false,
+                        selectedColor: Colors.purple,
+                        strokeColor: Colors.purple,
+                        handlerColor: Colors.purple,
+                        hideButtons: true,
+                        strokeWidth: 28,
+                        handlerRadius: 10,
+                        backgroundWidget: Center(
+                          child: SizedBox(
+                            width: 216,
+                            height: 216,
+                            child: Stack(
+                              children: [
+                                _buildClock(context, DateTime.now()),
+                                Positioned(
+                                  right: 78,
+                                  left: 78,
+                                  top: 74,
+                                  bottom: 68,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        '${_selectedTime.hour}hrs',
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 22),
+                                      ),
+                                      const SizedBox(
+                                        height: 3,
+                                      ),
+                                      Text(
+                                          '${_selectedTime.minute.toString().padLeft(2, "0")}min',
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 16))
+                                    ],
                                   ),
-                                  const SizedBox(
-                                    height: 3,
-                                  ),
-                                  Text(
-                                      '${_selectedTime.minute.toString().padLeft(2, "0")}min',
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 16))
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                _selectedTime.hour < _sleepGaol.hour
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/sleep_icons/union.png',
-                            width: 18,
-                            height: 18,
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Text(
-                            'Under your sleep gaol (${_sleepGaol.hour}hrs)',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ],
-                      )
-                    : Container(),
-                _selectedTime.hour > _sleepGaol.hour
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/sleep_icons/union.png',
-                            width: 18,
-                            height: 18,
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Text(
-                            'Over your sleep gaol (${_sleepGaol.hour}hrs)',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ],
-                      )
-                    : Container(),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 20.0, right: 20, top: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildSleepTime(
-                            context,
-                            _startTime
-                                .format(context)
-                                .toString()
-                                .padLeft(2, '0'),
-                            'Bedtime',
-                            Image.asset(
-                              'assets/sleep_icons/bedtime.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                          ),
-                          _buildSleepTime(
-                            context,
-                            _selectedTime.format(context),
-                            'Wakeup',
-                            Image.asset(
-                              'assets/sleep_icons/wakeup.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8, bottom: 8),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    _selectedTime.hour < _sleepGaol.hour
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Repeat days',
-                                  style: Theme.of(context).textTheme.headline5,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const WeekDaySelector(),
-                            ],
-                          ),
-                        ),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10)),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Remind me before bedtime',
+                              Image.asset(
+                                'assets/sleep_icons/union.png',
+                                width: 18,
+                                height: 18,
                               ),
                               const SizedBox(
                                 width: 2,
                               ),
-                              InkWell(
-                                onTap: () {
-                                  showModalBottomSheet<void>(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return const MinutesPicker();
-                                    },
-                                  );
-                                },
-                                child: Text(
-                                  '${manager.pickedTime} min',
-                                  style: Theme.of(context).textTheme.headline5,
+                              Text(
+                                'Under your sleep gaol (${_sleepGaol.hour}hrs)',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    _selectedTime.hour > _sleepGaol.hour
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/sleep_icons/union.png',
+                                width: 18,
+                                height: 18,
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                'Over your sleep gaol (${_sleepGaol.hour}hrs)',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 20.0, right: 20, top: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _buildSleepTime(
+                                context,
+                                _startTime
+                                    .format(context)
+                                    .toString()
+                                    .padLeft(2, '0'),
+                                'Bedtime',
+                                Image.asset(
+                                  'assets/sleep_icons/bedtime.png',
+                                  width: 20,
+                                  height: 20,
+                                ),
+                              ),
+                              _buildSleepTime(
+                                context,
+                                _selectedTime.format(context),
+                                'Wakeup',
+                                Image.asset(
+                                  'assets/sleep_icons/wakeup.png',
+                                  width: 20,
+                                  height: 20,
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      )
-                    ],
-                  ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 8.0, right: 8, bottom: 8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Repeat days',
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  const WeekDaySelector(),
+                                ],
+                              ),
+                            ),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Remind me before bedtime',
+                                  ),
+                                  const SizedBox(
+                                    width: 2,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      showModalBottomSheet<void>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return const MinutesPicker();
+                                        },
+                                      );
+                                    },
+                                    child: Text(
+                                      '${manager.pickedTime} min',
+                                      style:
+                                          Theme.of(context).textTheme.headline5,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                PavButton(
+                  text: 'Next',
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MinutesPicker()));
+                  },
                 ),
               ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            PavButton(
-              text: 'Next',
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MinutesPicker()));
-              },
-            ),
-          ],
+          ),
         ),
       ),
     );
