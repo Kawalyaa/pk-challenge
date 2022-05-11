@@ -12,7 +12,7 @@ void main() {
   runApp(
     DevicePreview(
       //Preview app on different screens
-      enabled: !kReleaseMode,
+      enabled: false,
       builder: (context) => ChangeNotifierProvider(
           create: (context) => TimeReminder(), child: Pavlok()),
     ),
