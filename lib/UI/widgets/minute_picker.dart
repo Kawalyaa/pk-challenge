@@ -84,11 +84,14 @@ class MinutesPicker extends StatelessWidget {
                   const SizedBox(
                     height: 4,
                   ),
-                  PavButton(
-                    text: 'Done',
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                  SizedBox(
+                    width: double.maxFinite,
+                    child: PavButton(
+                      text: 'Done',
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   )
                 ],
               ),

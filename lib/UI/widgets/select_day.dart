@@ -15,7 +15,6 @@ class _WeekDaySelectorState extends State<WeekDaySelector> {
   @override
   Widget build(BuildContext context) {
     return WeekdaySelector(
-      // selectedTextStyle: const TextStyle(color: Colors.white),
       selectedFillColor: const Color(0xFF8338EC),
       disabledFillColor: const Color(0xffF6F7FB),
       onChanged: (int day) {
