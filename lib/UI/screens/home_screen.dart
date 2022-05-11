@@ -30,14 +30,7 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 2);
-    // _tabController.addListener(_handleSelection);
   }
-
-  // _handleSelection() {
-  //   setState(() {
-  //     selectedTab = _tabController.index;
-  //   });
-  // }
 
   _tileSelection(int value) {
     setState(() {
@@ -51,128 +44,129 @@ class _HomeScreenState extends State<HomeScreen>
       length: 2,
       initialIndex: 0,
       child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(265),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 50.0,
-                ),
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 80.0,
-                    ),
-                    Expanded(
-                      child: StepProgressIndicator(
-                        totalSteps: total,
-                        currentStep: current,
-                        customStep: (index, color, _) => color ==
-                                const Color(0XFFFFB706)
-                            ? Container(
-                                height: 8,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  color: color,
-                                  shape: BoxShape.rectangle,
-                                  borderRadius: const BorderRadius.horizontal(
-                                    right: Radius.circular(10.0),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 50.0,
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 80.0,
+                  ),
+                  Expanded(
+                    child: StepProgressIndicator(
+                      totalSteps: total,
+                      currentStep: current,
+                      customStep: (index, color, _) =>
+                          color == const Color(0XFFFFB706)
+                              ? Container(
+                                  height: 8,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    color: color,
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: const BorderRadius.horizontal(
+                                      right: Radius.circular(10.0),
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  height: 8,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    color: color,
+                                    shape: BoxShape.rectangle,
                                   ),
                                 ),
-                              )
-                            : Container(
-                                height: 8,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  color: color,
-                                  shape: BoxShape.rectangle,
-                                ),
-                              ),
-                        size: 8,
-                        padding: 0,
-                        selectedColor: const Color(0XFFFFB706),
-                        unselectedColor: const Color(0xffE5E6EC),
-                        roundedEdges: const Radius.circular(20),
-                      ),
+                      size: 8,
+                      padding: 0,
+                      selectedColor: const Color(0XFFFFB706),
+                      unselectedColor: const Color(0xffE5E6EC),
+                      roundedEdges: const Radius.circular(20),
                     ),
-                    const SizedBox(
-                      width: 15.0,
-                    ),
-                    Text(
-                      '$current of $total',
-                      style: PavlokTheme.lightTextTheme.headline6
-                          ?.copyWith(color: Colors.black54),
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 30.0, left: 15.0, right: 15, bottom: 15),
-                  child: Text(
-                    'What\'s your main goal?',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline3,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 15.0, right: 15, bottom: 15),
-                  child: Text(
-                    'Let\'s start with one of these habits',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
+                  const SizedBox(
+                    width: 15.0,
+                  ),
+                  Text(
+                    '$current of $total',
+                    style: PavlokTheme.lightTextTheme.headline6
                         ?.copyWith(color: Colors.black54),
-                  ),
+                  )
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 30.0, left: 15.0, right: 15, bottom: 15),
+                child: Text(
+                  'What\'s your main goal?',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline3,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8, top: 8),
-                  child: TabBar(
-                      labelColor: const Color(0xFF8338EC),
-                      unselectedLabelColor: Colors.black45,
-                      indicator: const UnderlineTabIndicator(
-                        insets: EdgeInsets.only(left: 18, right: 35),
-                        borderSide:
-                            BorderSide(width: 3.0, color: Color(0xFF8338EC)),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 0, left: 15.0, right: 15, bottom: 15),
+                child: Text(
+                  'Let\'s start with one of these habits',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(color: Colors.black54),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8, top: 8),
+                child: TabBar(
+                    controller: _tabController,
+                    labelColor: const Color(0xFF8338EC),
+                    unselectedLabelColor: Colors.black45,
+                    indicator: const UnderlineTabIndicator(
+                      insets: EdgeInsets.only(left: 18, right: 35),
+                      borderSide:
+                          BorderSide(width: 3.0, color: Color(0xFF8338EC)),
+                    ),
+                    tabs: [
+                      Tab(
+                        child: Row(
+                          children: const [
+                            Icon(
+                              LeafIcon.leaf,
+                              size: 12,
+                            ),
+                            Text(' Start a good habit'),
+                          ],
+                        ),
                       ),
-                      tabs: [
-                        Tab(
-                          child: Row(
-                            children: const [
-                              Icon(
-                                LeafIcon.leaf,
-                                size: 12,
-                              ),
-                              Text(' Start a good habit'),
-                            ],
-                          ),
+                      Tab(
+                        child: Row(
+                          children: const [
+                            Icon(
+                              Icons.offline_bolt_outlined,
+                              size: 18,
+                            ),
+                            Text(' Break a bad habit'),
+                          ],
                         ),
-                        Tab(
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.offline_bolt_outlined,
-                                size: 18,
-                              ),
-                              Text(' Break a bad habit'),
-                            ],
-                          ),
-                        ),
-                      ]),
-                )
-              ],
-            ),
+                      ),
+                    ]),
+              ),
+              Flexible(
+                ///Make Tabview fill the available space
+                child: SizedBox(
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                  child: TabBarView(controller: _tabController,
+                      //controller: _tabController,
+                      children: [_habitList(), _breakHabitList()]),
+                ),
+              ),
+            ],
           ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 24.0, right: 24, bottom: 10),
-          child: TabBarView(
-              //controller: _tabController,
-              children: [_habitList(), _breakHabitList()]),
         ),
       ),
     );

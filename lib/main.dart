@@ -10,7 +10,7 @@ import 'package:device_preview/device_preview.dart';
 void main() {
   runApp(
     DevicePreview(
-      //enabled: false,
+      enabled: false,
       builder: (context) => ChangeNotifierProvider(
           create: (context) => TimeReminder(), child: Pavlok()),
     ),
