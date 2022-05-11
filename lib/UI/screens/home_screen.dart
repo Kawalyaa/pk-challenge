@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen>
               imageFile: 'assets/action_icons/donate.png',
               tileValue: 3),
           const SizedBox(
-            height: 90,
+            height: 120,
           ),
           PavButton(
             text: 'Next',

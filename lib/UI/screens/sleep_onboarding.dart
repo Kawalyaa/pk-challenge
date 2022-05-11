@@ -58,66 +58,68 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 24.0, right: 24),
-                      child: TimeRangePicker(
-                        autoAdjustLabels: false,
-                        minDuration: const Duration(hours: 5),
-                        onEndChange: (value) {
-                          setState(() {
-                            _selectedTime = value;
-                          });
-                        },
-                        backgroundColor: Colors.grey[300],
-                        disabledColor: Colors.grey[300],
-                        disabledTime: TimeRange(
-                            startTime: _disabledStartTime,
-                            endTime: __disabledEndTime),
-                        hideTimes: true,
-                        clockRotation: 180,
-                        start: _startTime,
-                        end: _selectedTime,
-                        use24HourFormat: false,
-                        selectedColor: Colors.purple,
-                        strokeColor: Colors.purple,
-                        handlerColor: Colors.purple,
-                        hideButtons: true,
-                        strokeWidth: 28,
-                        handlerRadius: 10,
-                        backgroundWidget: Center(
-                          child: SizedBox(
-                            width: 216,
-                            height: 216,
-                            child: Stack(
-                              children: [
-                                _buildClock(context, DateTime.now()),
-                                Positioned(
-                                  right: 78,
-                                  left: 78,
-                                  top: 74,
-                                  bottom: 68,
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        '${_selectedTime.hour}hrs',
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 22),
-                                      ),
-                                      const SizedBox(
-                                        height: 3,
-                                      ),
-                                      Text(
-                                          '${_selectedTime.minute.toString().padLeft(2, "0")}min',
+                    SizedBox(
+                      width: double.maxFinite,
+                      height: 300,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 2.0, right: 2),
+                        child: TimeRangePicker(
+                          autoAdjustLabels: false,
+                          minDuration: const Duration(hours: 5),
+                          onEndChange: (value) {
+                            setState(() {
+                              _selectedTime = value;
+                            });
+                          },
+                          backgroundColor: Colors.grey[300],
+                          disabledColor: Colors.grey[300],
+                          disabledTime: TimeRange(
+                              startTime: _disabledStartTime,
+                              endTime: __disabledEndTime),
+                          hideTimes: true,
+                          clockRotation: 180,
+                          start: _startTime,
+                          end: _selectedTime,
+                          use24HourFormat: false,
+                          selectedColor: const Color(0xFF8338EC),
+                          strokeColor: const Color(0xFF8338EC),
+                          handlerColor: const Color(0xFF8338EC),
+                          hideButtons: true,
+                          strokeWidth: 28,
+                          handlerRadius: 10,
+                          backgroundWidget: Center(
+                            child: SizedBox(
+                              width: 200,
+                              height: 200,
+                              child: Stack(
+                                children: [
+                                  _buildClock(context, DateTime.now()),
+                                  Positioned(
+                                    left: 74,
+                                    top: 74,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          '${_selectedTime.hour}hrs',
                                           style: const TextStyle(
                                               color: Colors.black,
-                                              fontWeight: FontWeight.w800,
-                                              fontSize: 16))
-                                    ],
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 22),
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Text(
+                                            '${_selectedTime.minute.toString().padLeft(2, "0")}min',
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: 16))
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -227,7 +229,7 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                             ),
                           ),
                           const SizedBox(
-                            height: 15,
+                            height: 25,
                           ),
                           Card(
                             child: Padding(
@@ -268,16 +270,14 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
                   ],
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 50,
                 ),
-                PavButton(
-                  text: 'Next',
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MinutesPicker()));
-                  },
+                SizedBox(
+                  width: double.maxFinite,
+                  child: PavButton(
+                    text: 'Next',
+                    onPressed: () {},
+                  ),
                 ),
               ],
             ),
@@ -286,20 +286,6 @@ class _SleepOnboardingState extends State<SleepOnboarding> {
       ),
     );
   }
-
-  Widget _selectMinutes({int current = 30}) => NumberPicker(
-        itemCount: 4,
-        selectedTextStyle: const TextStyle(color: Colors.black, fontSize: 30),
-        textStyle: const TextStyle(color: Colors.black54, fontSize: 22),
-        value: current,
-        maxValue: 50,
-        minValue: 10,
-        onChanged: (value) {
-          setState(() {
-            current = value;
-          });
-        },
-      );
 
   Text text(String text) => Text(
         text,
