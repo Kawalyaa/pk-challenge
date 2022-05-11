@@ -1,8 +1,12 @@
-# pavlok_challenge
+## Pavlok App UI
 
-A new Flutter project.
+A Flutter App to shape your behavior
 
-## Getting Started
+<p align=center><a href=#><img src="https://github.com/Kawalyaa/pk-challenge/blob/clean_code/AppGif/Pavlock.gif"/></a></p>
+
+<br/>
+
+
 
 This project is a starting point for a Flutter application.
 
